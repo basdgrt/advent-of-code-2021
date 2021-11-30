@@ -24,5 +24,9 @@ abstract class PuzzleSolution<R>(private val fileName: String) {
     protected abstract fun firstStarSolution(puzzleInput: List<String>): R
     protected abstract fun secondStarSolution(puzzleInput: List<String>): R
 
-    private fun readPuzzleInput() = File(RESOURCE_FOLDER, fileName).readLines()
+    private fun readPuzzleInput(): List<String> {
+        val lines = File(RESOURCE_FOLDER, fileName).readLines()
+        check(lines.isNotEmpty()) { "Puzzle input file $fileName is empty" }
+        return lines
+    }
 }
