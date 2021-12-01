@@ -7,15 +7,15 @@ class SonarSweep : PuzzleSolution<Int>(fileName = "Day01.txt") {
 
     override fun firstStarSolution(puzzleInput: List<String>): Int {
         return puzzleInput.toInts()
-            .windowed(size = 2)
-            .count { it[0] < it[1] }
+            .zipWithNext { current, next -> Pair(current, next) }
+            .count{ it.first < it.second}
     }
 
     override fun secondStarSolution(puzzleInput: List<String>): Int {
         return puzzleInput.toInts()
             .windowed(size = 3)
             .map { it.sum() }
-            .windowed(size = 2)
-            .count { it[0] < it[1] }
+            .zipWithNext { current, next -> Pair(current, next) }
+            .count{ it.first < it.second}
     }
 }
