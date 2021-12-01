@@ -1,7 +1,7 @@
-import solutions.day01.Day1Solution
+import solutions.day01.SonarSweep
 
 fun main() {
-    val puzzleSolver = Day1Solution()
+    val puzzleSolver = SonarSweep()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
