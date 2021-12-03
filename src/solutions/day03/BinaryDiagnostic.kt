@@ -4,99 +4,77 @@ import solutions.PuzzleSolution
 
 class BinaryDiagnostic : PuzzleSolution<Int>(fileName = "Day03_test.txt") {
     override fun firstStarSolution(puzzleInput: List<String>): Int {
-        val stringLength = puzzleInput.first().length
-        val gammaRate = mutableListOf<Char>()
-
-        for (i in 0 until stringLength) {
-            var numberOfOnes = 0
-            var numberOrZeros = 0
-
-            puzzleInput.forEach {
-                val current = it.toCharArray()[i]
-                if (current == '1') numberOfOnes += 1 else numberOrZeros += 1
-            }
-
-            if (numberOfOnes > numberOrZeros) {
-                gammaRate.add('1')
-            } else {
-                gammaRate.add('0')
-            }
-        }
-
-        val epsilonRate = gammaRate.inverse()
-
-        val gammaValue = Integer.parseInt(gammaRate.joinToString(separator = ""), 2)
-        val epsilonValue = Integer.parseInt(epsilonRate.joinToString(separator = ""), 2)
-
-        return gammaValue * epsilonValue
+        val gammaBinaryString = determineGammaBinary(puzzleInput)
+        val epsilonBinaryString = gammaBinaryString.flipBits()
+        return gammaBinaryString.toInt(radix = 2) * epsilonBinaryString.toInt(radix = 2)
     }
 
     override fun secondStarSolution(puzzleInput: List<String>): Int {
-        val stringLength = puzzleInput.first().length
+        val oxygenGeneratorBinary = determineOxygenGeneratorBinary(puzzleInput)
+        val scrubberRatingBinary = determineScrubberRatingBinary(puzzleInput)
+        return oxygenGeneratorBinary.toInt(radix = 2) * scrubberRatingBinary.toInt(radix = 2)
+    }
 
-        var oxygenGenaratorRatingInput = puzzleInput.oxygenGeneratorFilter(0)
+    private fun determineOxygenGeneratorBinary(puzzleInput: List<String>): String {
+        val indices = puzzleInput.first().indices
+        var oxygenGeneratorRatings = puzzleInput
 
-        for (i in 1 until stringLength) {
-            oxygenGenaratorRatingInput = oxygenGenaratorRatingInput.oxygenGeneratorFilter(i)
-
-            if (oxygenGenaratorRatingInput.size == 1) {
+        for (i in indices) {
+            val mostFrequentCharacter = oxygenGeneratorRatings.charactersPerColumnCount(i).getMostOccurringCharacter()
+            oxygenGeneratorRatings = oxygenGeneratorRatings.filter { it[i] == mostFrequentCharacter }
+            if (oxygenGeneratorRatings.size == 1) {
                 break
             }
         }
 
-        var co2ScrubberRating = puzzleInput.co2ScrubberRating(0)
+        return oxygenGeneratorRatings.joinToString(separator = "")
+    }
 
-        for (i in 1 until stringLength) {
-            co2ScrubberRating = co2ScrubberRating.co2ScrubberRating(i)
+    private fun determineScrubberRatingBinary(puzzleInput: List<String>): String {
+        val indices = puzzleInput.first().indices
+        var scrubberRatingBinary = puzzleInput
 
-            if (co2ScrubberRating.size == 1) {
+        for (i in indices) {
+            val leastFrequentCharacter = scrubberRatingBinary.charactersPerColumnCount(i).getLeastOccurringCharacter()
+            scrubberRatingBinary = scrubberRatingBinary.filter { it[i] == leastFrequentCharacter }
+            if (scrubberRatingBinary.size == 1) {
                 break
             }
         }
 
-        val oxygen = Integer.parseInt(oxygenGenaratorRatingInput.joinToString(separator = ""), 2)
-        val co2 = Integer.parseInt(co2ScrubberRating.joinToString(separator = ""), 2)
-
-        return oxygen * co2
+        return scrubberRatingBinary.joinToString(separator = "")
     }
 }
 
-private fun List<String>.oxygenGeneratorFilter(index: Int): List<String> {
-    var numberOfOnes = 0
-    var numberOrZeros = 0
+private fun Map<Char, Int>.getMostOccurringCharacter(): Char {
+    val numberOfOnes = getValue('1')
+    val numberOfZeros = getValue('0')
 
-    forEach {
-        val current = it.toCharArray()[index]
-        if (current == '1') numberOfOnes += 1 else numberOrZeros += 1
-    }
+    return if (numberOfOnes >= numberOfZeros) '1' else '0'
+}
 
-    return filter {
-        if (numberOfOnes >= numberOrZeros) {
-            it[index] == '1'
-        } else {
-            it[index] == '0'
+private fun Map<Char, Int>.getLeastOccurringCharacter(): Char {
+    val numberOfOnes = getValue('1')
+    val numberOfZeros = getValue('0')
+
+    return if (numberOfOnes < numberOfZeros) '1' else '0'
+}
+
+private fun determineGammaBinary(puzzleInput: List<String>): String {
+    val indices = puzzleInput.first().indices
+
+    val gammaValue = indices.map { columnNumber -> puzzleInput.charactersPerColumnCount(columnNumber) }
+        .joinToString(separator = "") { frequencyMap ->
+            val mostFrequentChar = frequencyMap.maxByOrNull { it.value }?.key ?: throw IllegalStateException("Foo")
+            mostFrequentChar.toString()
         }
-    }
+    return gammaValue
 }
 
-private fun List<String>.co2ScrubberRating(index: Int): List<String> {
-    var numberOfOnes = 0
-    var numberOrZeros = 0
-
-    forEach {
-        val current = it.toCharArray()[index]
-        if (current == '1') numberOfOnes += 1 else numberOrZeros += 1
-    }
-
-    return filter {
-        if (numberOrZeros <= numberOfOnes) {
-            it[index] == '0'
-        } else {
-            it[index] == '1'
-        }
-    }
+private fun List<String>.charactersPerColumnCount(columnNumber: Int): Map<Char, Int> {
+    return groupingBy { it[columnNumber] }.eachCount()
 }
 
-private fun List<Char>.inverse(): List<Char> {
-    return map { if (it == '1') '0' else '1' }
+private fun String.flipBits(): String {
+    return toCharArray().joinToString(separator = "") { if (it == '1') "0" else "1" }
 }
