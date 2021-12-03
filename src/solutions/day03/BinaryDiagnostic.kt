@@ -39,6 +39,7 @@ private fun List<String>.determineOxygenGeneratorBinary(): String {
     for (column in first().indices) {
         val mostFrequentCharacter = oxygenGeneratorRatings.charactersPerColumnCount(column)
             .mostOccurringBitOrOne()
+
         oxygenGeneratorRatings = oxygenGeneratorRatings.filter { it[column] == mostFrequentCharacter }
         if (oxygenGeneratorRatings.size == 1) {
             break
