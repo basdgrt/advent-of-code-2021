@@ -1,7 +1,7 @@
-import solutions.day02.Dive
+import solutions.day03.BinaryDiagnostic
 
 fun main() {
-    val puzzleSolver = Dive()
+    val puzzleSolver = BinaryDiagnostic()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
