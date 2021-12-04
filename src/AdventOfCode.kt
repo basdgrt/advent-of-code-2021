@@ -1,7 +1,7 @@
-import solutions.day03.BinaryDiagnostic
+import solutions.day04.GiantSquid
 
 fun main() {
-    val puzzleSolver = BinaryDiagnostic()
+    val puzzleSolver = GiantSquid()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
