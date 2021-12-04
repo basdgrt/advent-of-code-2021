@@ -16,8 +16,6 @@ class GiantSquid : PuzzleSolution<Int>("Day04.txt") {
     }
 }
 
-data class Field(val value: Int, val marked: Boolean = false)
-
 data class Winner(val bingoBoard: BingoBoard, val winningNumber: Int)
 
 private fun playBingo(puzzleInput: List<String>): MutableList<Winner> {

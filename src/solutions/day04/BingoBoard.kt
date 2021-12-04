@@ -1,5 +1,7 @@
 package solutions.day04
 
+data class Field(val value: Int, val marked: Boolean = false)
+
 class BingoBoard(private val fields: List<MutableList<Field>>) {
     companion object {
         fun fromPuzzleInput(puzzleInput: List<String>): List<BingoBoard> {
