@@ -1,7 +1,7 @@
-import solutions.day04.GiantSquid
+import solutions.day05.HydrothermalVenture
 
 fun main() {
-    val puzzleSolver = GiantSquid()
+    val puzzleSolver = HydrothermalVenture()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
