@@ -1,7 +1,7 @@
-import solutions.day07.TreacheryOfWhales
+import solutions.day08.SevenSegmentSearch
 
 fun main() {
-    val puzzleSolver = TreacheryOfWhales()
+    val puzzleSolver = SevenSegmentSearch()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
