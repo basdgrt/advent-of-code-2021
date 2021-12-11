@@ -1,7 +1,7 @@
-import solutions.day11.DumboOctopus
+import solutions.day09.SmokeBasin
 
 fun main() {
-    val puzzleSolver = DumboOctopus()
+    val puzzleSolver = SmokeBasin()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
