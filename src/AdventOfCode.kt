@@ -1,7 +1,7 @@
-import solutions.day12.PassagePathing
+import solutions.day10.SyntaxScoring
 
 fun main() {
-    val puzzleSolver = PassagePathing()
+    val puzzleSolver = SyntaxScoring()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
