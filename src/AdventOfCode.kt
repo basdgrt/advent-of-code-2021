@@ -1,7 +1,7 @@
-import solutions.day09.SmokeBasin
+import solutions.day12.PassagePathing
 
 fun main() {
-    val puzzleSolver = SmokeBasin()
+    val puzzleSolver = PassagePathing()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
