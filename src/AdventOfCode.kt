@@ -1,7 +1,7 @@
-import solutions.day10.SyntaxScoring
+import solutions.day13.TransparentOrigami
 
 fun main() {
-    val puzzleSolver = SyntaxScoring()
+    val puzzleSolver = TransparentOrigami()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
