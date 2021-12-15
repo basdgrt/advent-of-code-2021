@@ -1,7 +1,7 @@
-import solutions.day15.Chiton
+import solutions.day14.ExtendedPolymerization
 
 fun main() {
-    val puzzleSolver = Chiton()
+    val puzzleSolver = ExtendedPolymerization()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
