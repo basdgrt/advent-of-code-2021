@@ -1,7 +1,7 @@
-import solutions.day13.TransparentOrigami
+import solutions.day15.Chiton
 
 fun main() {
-    val puzzleSolver = TransparentOrigami()
+    val puzzleSolver = Chiton()
     puzzleSolver.solveFirstPuzzle()
     puzzleSolver.solveSecondPuzzle()
 }
